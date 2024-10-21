@@ -4,12 +4,13 @@ import validators
 import re
 
 class Registration():
-    def __init__(self, first_name, last_name, email, birth_date, gender, middle_name=None):
+    def __init__(self, first_name, last_name, email, birth_date, gender, password, middle_name=None):
         self.first_name = first_name 
         self.last_name = last_name
         self.email = email
         self.birth_date = birth_date
         self.gender = gender
+        self.password = password
         self.middle_name = middle_name
 
     
@@ -95,6 +96,24 @@ class Registration():
         else:
             self._birth_date = birth_date
           
+    @property
+    def password(self):
+        return self._password
+
+    @password.setter
+    def password(self, password):
+        error_message = f'''
+        1. Contains at least one letter (uppercase or lowercase).
+        2. Contains at least two digits.
+        3. Contains at least one special character (e.g., !@#$%^&*()).
+        4. Has a length of at least 8 characters.
+        '''
+        pattern = r'^(?=.*[a-zA-Z])(?=(?:.*\d.*\d))(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{8,}$'
+        if not re.match(pattern, password):
+            raise ValueError(error_message)
+        else:
+            self._password = password
+
 
     def __str__(self):
         result = f'''
@@ -109,13 +128,20 @@ class Registration():
     
     @classmethod
     def get(cls):
+        for_password = f'''
+        1. Contains at least one letter (uppercase or lowercase).
+        2. Contains at least two digits.
+        3. Contains at least one special character (e.g., !@#$%^&*()).
+        4. Has a length of at least 8 characters.
+        '''
         first_name = input("First name: ").strip().capitalize()
         middle_name = input("Middle name (Optional): ").strip().capitalize()
         last_name = input("Last name: ").strip().capitalize()
         email = input("Email: ").strip()
         birth_date = input("Date of Birth (YYYY-MM-DD): ").strip()
         gender = input("Gender (M or F or Other): ").strip().casefold()
-        return cls(first_name, last_name, email, birth_date, gender, middle_name)
+        password = input(f"Enter Password:  {for_password} ")
+        return cls(first_name, last_name, email, birth_date, gender, password, middle_name)
 
 def main():
     while True:
@@ -127,9 +153,6 @@ def main():
             print(f"Error: {e}")
             pass
     
-# TODO
-# Have password work either by conditionals or regex.
-
 
 if __name__ == "__main__":
     main()
