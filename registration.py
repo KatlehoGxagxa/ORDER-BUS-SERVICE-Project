@@ -4,14 +4,14 @@ import validators
 import re
 
 class Registration():
-    def __init__(self, first_name, last_name, email, birth_date, gender, password, middle_name=None):
-        self.first_name = first_name
-        self.middle_name = middle_name 
+    def __init__(self, first_name, last_name, email, birth_date, gender, middle_name=None):
+        self.first_name = first_name 
         self.last_name = last_name
         self.email = email
         self.birth_date = birth_date
         self.gender = gender
-        self.password = password
+        self.middle_name = middle_name
+
     
     @property
     def first_name(self):
@@ -30,7 +30,7 @@ class Registration():
 
     @middle_name.setter
     def middle_name(self, middle_name):
-        if middle_name == None:
+        if not middle_name:
             self._middle_name = ""
         else:
             if not (len(middle_name) >= 2 and middle_name.isalpha()):
