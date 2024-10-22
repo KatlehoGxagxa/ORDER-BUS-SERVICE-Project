@@ -2,6 +2,7 @@
 # This program seeks to create a registration function for a user of an application.
 import validators
 import re
+import csv
 
 class Registration():
     def __init__(self, first_name, last_name, email, birth_date, gender, password, middle_name=None):
@@ -117,12 +118,7 @@ class Registration():
 
     def __str__(self):
         result = f'''
-    First Name: {self.first_name}
-    Middle Name: {self.middle_name}
-    Last Name: {self.last_name}
-    Email: {self.email}
-    Date of Birth: {self.birth_date}
-    Gender: {self.gender}
+Successfully registered.
     '''
         return result
     
@@ -143,16 +139,16 @@ class Registration():
         password = input(f"Enter Password:  {for_password} ")
         return cls(first_name, last_name, email, birth_date, gender, password, middle_name)
 
+
+    def store(self):
+        with open("Users.csv", "w") as user_database:
+            headers = ["first_name", "middle_name", "last_name", "email", "birth_date", "gender", "password"]
+            writer = csv.DictWriter(user_database, fieldnames=headers)
+            writer.writeheader()
+            writer.writerow({'first_name': self.first_name, "middle_name": self.middle_name, "last_name": self.last_name, "email": self.email, "birth_date": self.birth_date, "gender": self.gender, "password": self.password})
+
 def main():
-    while True:
-        try:
-            user = Registration.get()
-            print(user)
-            break
-        except ValueError as e:
-            print(f"Error: {e}")
-            pass
-    
+    ...    
 
 if __name__ == "__main__":
     main()
