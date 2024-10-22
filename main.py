@@ -6,12 +6,12 @@ import csv
 
 def menu():
     menu = f'''
-                      Welcome!
-                 Create new account
+                           Welcome!
+                      Create new account
 
-                already have an Account?
-                        LOG IN
-    '''
+                    already have an Account?
+                            LOG IN
+                '''
     return menu
 
 
@@ -21,6 +21,7 @@ def option():
         option = input("SIGN UP or LOG IN: ").strip().casefold()
         if option == "log in":
             user = LOGIN.get()
+            print("\n")
             user.match()
             break
         elif option == "sign up":
@@ -34,7 +35,7 @@ def main():
     try:
         print(menu())
         option()
-    except ValueError as e:
+    except Exception as e:
         print(f"Error: {e}")
 
 

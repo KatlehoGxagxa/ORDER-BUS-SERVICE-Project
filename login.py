@@ -2,6 +2,7 @@
 # This program implements the log in functionality to my application.
 from registration import Registration
 import csv
+from datetime import datetime
 
 class LOGIN():
     def __init__(self, email, password):
@@ -29,6 +30,7 @@ class LOGIN():
                     Date of Birth: {row["birth_date"]}
                     Gender: {row["gender"]}
 
+                                            {datetime.now()}
                     '''
                     print(profile)
                     break

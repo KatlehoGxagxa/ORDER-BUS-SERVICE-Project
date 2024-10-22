@@ -35,7 +35,7 @@ class Registration():
     @middle_name.setter
     def middle_name(self, middle_name):
         if not middle_name:
-            self._middle_name = ""
+            self._middle_name = "N/A"
         else:
             if not (len(middle_name) >= 2 and middle_name.isalpha()):
                 raise ValueError("Invalid middle name.")
@@ -146,7 +146,7 @@ Successfully registered.
             reader = csv.DictReader(user_database)
             for row in reader:
                 if row["email"] == self.email:
-                    raise ValueError("Unable to register, email already has an account.")
+                    raise ValueError(f"Unable to register, email already has an account.")
                 else:
                     pass
 
