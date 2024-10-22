@@ -21,9 +21,17 @@ class LOGIN():
                 if row["email"] == self.email and row["password"] == self.password:
                     print(f'''  Logging in...
                     Status: Online.''')
+                    profile = f'''
+                    First name: {row["first_name"]}
+                    Middle name: {row["middle_name"]}
+                    Last name: {row["last_name"]}
+                    Email: {row["email"]}
+                    Date of Birth: {row["birth_date"]}
+                    Gender: {row["gender"]}
+
+                    '''
+                    print(profile)
                     break
-                else:
-                    pass
             else:
                 raise ValueError("Account does not exist.")
     
