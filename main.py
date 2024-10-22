@@ -19,17 +19,21 @@ def option():
         print("Choose option.")
         option = input("SIGN UP or LOG IN: ").strip().casefold()
         if option == "log in":
-            print("logging in....  status: online.")
+            print("logging in....... status: online.")
             break
         elif option == "sign up":
             user = Registration.get()
+            user.check_user()
             user.store()
             print(user)
             break
 
 def main():
-    print(menu())
-    option()
+    try:
+        print(menu())
+        option()
+    except ValueError as e:
+        print(f"Error: {e}")
 
 
 if __name__ == "__main__":

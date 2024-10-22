@@ -3,6 +3,8 @@
 import validators
 import re
 import csv
+import os
+
 
 class Registration():
     def __init__(self, first_name, last_name, email, birth_date, gender, password, middle_name=None):
@@ -139,16 +141,29 @@ Successfully registered.
         password = input(f"Enter Password:  {for_password} ")
         return cls(first_name, last_name, email, birth_date, gender, password, middle_name)
 
+    def check_user(self):
+        with open("Users.csv", "r") as user_database:
+            reader = csv.DictReader(user_database)
+            for row in reader:
+                if row["email"] == self.email:
+                    raise ValueError("Unable to register, email already has an account.")
+                else:
+                    print(row)
 
     def store(self):
-        with open("Users.csv", "w") as user_database:
+        csvfile = "Users.csv"
+        file_is_empty = not os.path.isfile(csvfile) or os.stat(csvfile).st_size == 0
+        with open("Users.csv", "a") as user_database:
             headers = ["first_name", "middle_name", "last_name", "email", "birth_date", "gender", "password"]
             writer = csv.DictWriter(user_database, fieldnames=headers)
-            writer.writeheader()
+            if file_is_empty:
+                writer.writeheader()
             writer.writerow({'first_name': self.first_name, "middle_name": self.middle_name, "last_name": self.last_name, "email": self.email, "birth_date": self.birth_date, "gender": self.gender, "password": self.password})
+                    
 
+                
 def main():
-    ...    
+    ...
 
 if __name__ == "__main__":
     main()
