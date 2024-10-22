@@ -148,7 +148,7 @@ Successfully registered.
                 if row["email"] == self.email:
                     raise ValueError("Unable to register, email already has an account.")
                 else:
-                    print(row)
+                    pass
 
     def store(self):
         csvfile = "Users.csv"
