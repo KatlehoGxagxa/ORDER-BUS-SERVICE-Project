@@ -8,7 +8,7 @@ SEATS = 68
 STANDS = 25
 CAPACITY = SEATS + STANDS
 FARE = 25  # Cost of a seat
-STAND_FARE = FARE - 5  # Cost of a stand, 5 units less than a seat
+STAND_FARE = FARE - 5  # Cost of a stand, 5 units less than a seat.
 
 # Global variables
 bus_id = ["1101", "1102", "1103", "1104", "1105", "1106", "1107", "1108"]
@@ -19,11 +19,13 @@ balance = 0
 occupancy = {
     bus: {
         "seats": random.randint(0, SEATS),  # Random number of occupied seats
-        "stands": random.randint(0, STANDS)  # Random number of occupied standing spots
+        "stands": random.randint(0, STANDS),  # Random number of occupied standing spots
     }
     for bus in bus_id
 }
 
+
+# Outputs the full bus schedule.
 def bus_schedule():
     start_time = datetime.strptime("06:00", "%H:%M")
     end_time = datetime.strptime("22:00", "%H:%M")
@@ -40,11 +42,14 @@ def bus_schedule():
     for time in times:
         print(f"Next trip to Auckland Park is at: {time}")
 
+
+# Allows user to make a deposit.
 def deposit():
     global balance
     amount = float(input("\nEnter amount to deposit: R"))
     balance += amount
     print(f"Your new balance is: R{balance:.2f}")
+
 
 def order_ride():
     global balance, left, bus_id
@@ -63,13 +68,15 @@ def order_ride():
         if seats_available > 0:
             print(f"\n{seats_available} seats available in bus ID {bus}.")
             order = input("Order seat (Y/N)? ").casefold()
-            if order in ('y', 'yes'):
-                print(f"Seat ordered successfully in bus of ID - {bus}. Have a nice ride.")
+            if order in ("y", "yes"):
+                print(
+                    f"Seat ordered successfully in bus of ID - {bus}. Have a nice ride."
+                )
                 occupancy[bus]["seats"] += 1
                 balance -= FARE
                 print(f"Your new balance is: R{balance:.2f}")
                 break
-            elif order in ('n', 'no'):
+            elif order in ("n", "no"):
                 print("Check bus schedule for the next available trip.")
             else:
                 print("Invalid choice. Please enter Y/N.")
@@ -77,23 +84,27 @@ def order_ride():
         elif stands_available > 0:
             print(f"\n{stands_available} standing spots available in bus ID {bus}.")
             order = input("Order stand (Y/N)? ").casefold()
-            if order in ('y', 'yes'):
-                print(f"Stand ordered successfully in bus of ID - {bus}. Have a nice ride.")
+            if order in ("y", "yes"):
+                print(
+                    f"Stand ordered successfully in bus of ID - {bus}. Have a nice ride."
+                )
                 occupancy[bus]["stands"] += 1
                 balance -= STAND_FARE
                 print(f"Your new balance is: R{balance:.2f}")
                 break
-            elif order in ('n', 'no'):
+            elif order in ("n", "no"):
                 print("Check bus schedule for the next available trip.")
             else:
                 print("Invalid choice. Please enter Y/N.")
 
         else:
-            print(f"\nBus ID {bus} is full. Please check the bus schedule for the next available trip.")
+            print(
+                f"\nBus ID {bus} is full. Please check the bus schedule for the next available trip."
+            )
 
-def main():
-    ...
+
+def main(): ...
+
 
 if __name__ == "__main__":
     main()
-
